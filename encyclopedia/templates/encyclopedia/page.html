@@ -1,0 +1,20 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ markName }}
+{% endblock %}
+
+{% block body %}
+    {% if markPage == None %}
+        <h1>
+            page not found
+            
+        </h1>
+    {% else %}
+        <h1> {{ markPage.title }} </h1>
+    {% endif %}
+
+
+
+
+{% endblock %}

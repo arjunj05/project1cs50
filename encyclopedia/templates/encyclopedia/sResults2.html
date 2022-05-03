@@ -1,0 +1,17 @@
+<!-- search results page that shows list of substring of-->
+
+
+{% extends "encyclopedia/layout.html" %}
+{% block body %}
+    result set
+    <ul>
+        {% for list in resultSet %}
+            <li>
+                <a href="{% url 'page' list %}">{{list}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+{% endblock %}
