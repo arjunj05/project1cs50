@@ -5,6 +5,8 @@ import numpy
 from numpy import random
 from django import forms
 from markdown2 import markdown
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 class NewTaskForm(forms.Form):
@@ -43,8 +45,15 @@ def search(request):
                         resultSet.add(entry)
         return render(request, "encyclopedia/sResults2.html", {"resultSet": resultSet, "allEnteries": allEnteries} )
 
+def create(request):
+    if request.method == "POST":
+        print("inside create function")
+        title = request.POST.get('t')
+        content = request.POST.get('c')
+        util.save_entry(title,content)
+        return HttpResponseRedirect(reverse("wiki:index"))
 
-
+    return render(request, "encyclopedia/create.html")
     
 
 

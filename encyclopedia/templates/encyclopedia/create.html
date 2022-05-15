@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %}
+
+
+{% block body %}
+    <h1> Enter Markdown to Create New Page!</h1>   
+    <br> </br>
+    <form action = "{%url  'wiki:create' %}" method = "post">
+        {% csrf_token %}
+        <input  type="text" placeholder="Title of page Here" name = 't' style="width:500px;" />
+        <br> </br>
+        <input  type="text" placeholder="Markdown Content Here" name = 'c' style="width:500px;height:250px;" />
+        <input type = "submit">
+    </form>
+
+{% endblock %}
