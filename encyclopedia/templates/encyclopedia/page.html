@@ -3,16 +3,11 @@
 
 
 {% block body %}
-    {% if markPage == None %}
-        <h1>
-            page not found
-            
-        </h1>
-    {% else %}
-        <h1> {{ markPage | safe }} </h1>
-    {% endif %}
+    
+    <h1> {{ markPage | safe }} </h1>
+    
 
 
-
+    <a href="{% url 'wiki:edit' markName  %}"> Edit This Page</a>     
 
 {% endblock %}

@@ -17,6 +17,8 @@ def index(request):
         "entries": util.list_entries()
     })
 def page(request, name):
+        if util.get_entry(name) == None:
+            return render(request,"encyclopedia/errorPage.html")
         return render(request, "encyclopedia/page.html", {
         "markPage": markdown(util.get_entry(name)), "markName": name
         })
@@ -57,6 +59,14 @@ def create(request):
         return HttpResponseRedirect(reverse("wiki:index"))
 
     return render(request, "encyclopedia/create.html")
+
+def edit(request, name):
+    if request.method == "POST":
+        title = name
+        content = request.POST.get('c')
+        util.save_entry(title,content)
+        return HttpResponseRedirect(reverse("wiki:index"))
+    return render(request, "encyclopedia/edit.html", {"entry": util.get_entry(name),"name": name })
     
 
 
