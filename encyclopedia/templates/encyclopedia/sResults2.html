@@ -7,7 +7,7 @@
     <ul>
         {% for list in resultSet %}
             <li>
-                <a href="{% url 'page' list %}">{{list}}</a>
+                <a href="{% url 'wiki:page' list %}">{{list}}</a>
             </li>
         {% endfor %}
     </ul>

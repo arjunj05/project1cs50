@@ -4,6 +4,7 @@ from . import util
 import numpy  
 from numpy import random
 from django import forms
+from markdown2 import markdown
 
 
 class NewTaskForm(forms.Form):
@@ -14,33 +15,33 @@ def index(request):
         "entries": util.list_entries()
     })
 def page(request, name):
-    if request.method == "POST":
-        if util.get_entry(name) != None:
-            return render(request, "encyclopedia/page.html", {
-            "markPage": util.get_entry(name), "markName": name
-            })
-        else:
-            allEnteries = util.list_entries()
-            resultSet = set()
-            for entry in allEnteries:
-                if len(name) < len(entry):
-                    for i in range(0,len(entry)-len(name)):
-                        if name == entry[i : i+len(name)]:
-                            resultSet.add(entry)
-            return render(request, "encyclopedia/sResults2.html", {"resultSet": resultSet, "allEnteries": allEnteries} )
-
-    if name == "random":
-        allEnteries = util.list_entries()
-        x = random.randint(0,len(allEnteries)-1)
         return render(request, "encyclopedia/page.html", {
-        "markPage": util.get_entry(allEnteries[x]), "markName": allEnteries[x]
+        "markPage": markdown(util.get_entry(name)), "markName": name
         })
 
+def randomPage(request):
+    allEnteries = util.list_entries()
+    x = random.randint(0,len(allEnteries)-1)
+    return render(request, "encyclopedia/page.html", {
+    "markPage": markdown(util.get_entry(allEnteries[x])), "markName": allEnteries[x]
+    })
+
+def search(request): 
+    sReq = request.GET.get('s')
+    print(request.GET.get('s'))
+    if util.get_entry(sReq) != None:
+        return render(request, "encyclopedia/page.html", {
+        "markPage": markdown(util.get_entry(sReq)), "markName": sReq
+        })
     else:
-        print("in page method")
-        return render(request, "encyclopedia/page.html", {
-        "markPage": util.get_entry(name), "markName": name
-        })
+        allEnteries = util.list_entries()
+        resultSet = set()
+        for entry in allEnteries:
+            if len(sReq) < len(entry):
+                for i in range(0,len(entry)-len(sReq) +1):
+                    if sReq == entry[i : i+len(sReq)]:
+                        resultSet.add(entry)
+        return render(request, "encyclopedia/sResults2.html", {"resultSet": resultSet, "allEnteries": allEnteries} )
 
 
 

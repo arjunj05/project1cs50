@@ -1,8 +1,6 @@
 {% extends "encyclopedia/layout.html" %}
 
-{% block title %}
-    {{ markName }}
-{% endblock %}
+
 
 {% block body %}
     {% if markPage == None %}
@@ -11,7 +9,7 @@
             
         </h1>
     {% else %}
-        <h1> {{ markPage.title }} </h1>
+        <h1> {{ markPage | safe }} </h1>
     {% endif %}
 
 
