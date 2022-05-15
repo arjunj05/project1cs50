@@ -12,10 +12,10 @@
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
                 <h2>Wiki</h2>
-                <form action = "{%url  'page' 'ytho' %}" method = "post">
+                <form action = "{%url  'page'  'python' %}" method = "post">
                     {% csrf_token %}
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                    <input class="search" type = submit>
+                    {{ form }}
+                    <input type = "submit">
                 </form>
                 <div>
                     <a href="{% url 'index' %}">Home</a>
@@ -24,7 +24,7 @@
                     Create New Page
                 </div>
                 <div>
-                    <a href = "{% url 'randPage' %}">Random Page</a>
+                    <a href = "{% url 'page' 'random' %}">Random Page</a>
                 </div>
                 {% block nav %}
                 {% endblock %}

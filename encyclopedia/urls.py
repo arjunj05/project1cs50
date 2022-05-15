@@ -6,5 +6,5 @@ urlpatterns = [
     
     path("", views.index, name="index"),
     path("<str:name>", views.page, name = "page"),
-    path("", views.randPage, name = "randPage")
+    path("", views.page, name = "searching"),
 ]
