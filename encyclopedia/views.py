@@ -50,6 +50,9 @@ def create(request):
         print("inside create function")
         title = request.POST.get('t')
         content = request.POST.get('c')
+        for entry in util.list_entries():
+            if title == entry:
+                return render(request,"encyclopedia/errorPage.html")
         util.save_entry(title,content)
         return HttpResponseRedirect(reverse("wiki:index"))
 
